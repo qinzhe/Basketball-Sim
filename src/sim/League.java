@@ -1,7 +1,9 @@
 package sim;
 
-public abstract class League {
+public abstract class League extends NBA {
 	
-	
+	public void getStandings(){
+		
+	}
 
 }

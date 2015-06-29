@@ -10,7 +10,7 @@ public class NBA {
 
 	public static void main(String[] args) {
 		newLeague();
-		new Game(0,1);
+		new GameSim(0,1);
 	}
 
 	public static void newLeague() {
@@ -26,11 +26,12 @@ public class NBA {
 	public static Player randomPlayer(String team) {
 		Player player = new Player();
 		player.firstName = "Joe";
-		player.lastName = "Jones";
+		player.lastName = "Jones" + random.nextInt(99);
 		player.pos = random.nextInt(5);
 		player.team = team;
-		player.offRTG = random.nextInt(100);
-		player.defRTG = random.nextInt(100);
+		player.offRTG = random.nextInt(50) + 45;
+		player.defRTG = random.nextInt(50) + 45;
+		player.stamina = random.nextInt(12);
 		return player;
 	}
 
