@@ -43,3 +43,5 @@ Temporary Items
 .apdisk
 .settings/org.eclipse.jdt.core.prefs
 *.class
+.classpath
+.project
