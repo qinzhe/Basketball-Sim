@@ -204,9 +204,9 @@ public class GameSim extends NBA {
 			defense = awayActive[ballHandler].defRTG;
 		} else {
 			shotChance = awayActive[ballHandler - 5].offRTG;
-			defense = homeActive[ballHandler-5].defRTG;
+			defense = homeActive[ballHandler - 5].defRTG;
 		}
-		
+
 		if (random.nextInt(100) < defense) {
 			shotChance *= .5;
 		}
@@ -225,16 +225,29 @@ public class GameSim extends NBA {
 				homeActive[ballHandler].FGA += 1;
 				if ((temp < 5) && (temp > -1) && (temp != ballHandler)) {
 					homeActive[temp].AST += 1;
-					System.out.println(String.format("%02d:%02d", minutes, seconds)
-							+ " - (" + league[home].abb + ") "
-							+ homeActive[ballHandler].lastName + " makes "
-							+ points + " pt shot. " + homeActive[temp].lastName
+					System.out.println(String.format("%02d:%02d", minutes,
+							seconds)
+							+ " - ("
+							+ league[home].abb
+							+ ") "
+							+ homeActive[ballHandler].lastName
+							+ " makes "
+							+ points
+							+ " pt shot. "
+							+ homeActive[temp].lastName
 							+ " assists. " + awayScore + "-" + homeScore);
 				} else {
-					System.out.println(String.format("%02d:%02d", minutes, seconds)
-							+ " - (" + league[home].abb + ") "
-							+ homeActive[ballHandler].lastName + " makes "
-							+ points + " pt shot. " + awayScore + "-"
+					System.out.println(String.format("%02d:%02d", minutes,
+							seconds)
+							+ " - ("
+							+ league[home].abb
+							+ ") "
+							+ homeActive[ballHandler].lastName
+							+ " makes "
+							+ points
+							+ " pt shot. "
+							+ awayScore
+							+ "-"
 							+ homeScore);
 				}
 			} else {
@@ -244,31 +257,31 @@ public class GameSim extends NBA {
 				awayActive[ballHandler - 5].FGA += 1;
 				if ((temp >= 5) && (temp != ballHandler)) {
 					awayActive[temp - 5].AST += 1;
-					System.out.println(gameClock / 60
-							+ ":" + gameClock % 60 + " - (" + league[home].abb
-							+ ") " + awayActive[ballHandler - 5].lastName
-							+ " makes " + points + " pt shot. "
+					System.out.println(gameClock / 60 + ":" + gameClock % 60
+							+ " - (" + league[home].abb + ") "
+							+ awayActive[ballHandler - 5].lastName + " makes "
+							+ points + " pt shot. "
 							+ awayActive[temp - 5].lastName + " assists. "
 							+ awayScore + "-" + homeScore);
 				} else {
-					System.out.println(gameClock / 60
-							+ ":" + gameClock % 60 + " - (" + league[away].abb
-							+ ") " + awayActive[ballHandler - 5].lastName
-							+ " makes " + points + " pt shot. " + awayScore
-							+ "-" + homeScore);
+					System.out.println(gameClock / 60 + ":" + gameClock % 60
+							+ " - (" + league[away].abb + ") "
+							+ awayActive[ballHandler - 5].lastName + " makes "
+							+ points + " pt shot. " + awayScore + "-"
+							+ homeScore);
 				}
 			}
 			nextPossession();
 		} else {
 			if (homeBall) {
 				homeActive[ballHandler].FGA += 1;
-				System.out.println(gameClock / 60 + ":"
-						+ gameClock % 60 + " - (" + league[home].abb + ") "
+				System.out.println(gameClock / 60 + ":" + gameClock % 60
+						+ " - (" + league[home].abb + ") "
 						+ homeActive[ballHandler].lastName + " missed shot.");
 			} else {
 				awayActive[ballHandler - 5].FGA += 1;
-				System.out.println(gameClock / 60 + ":"
-						+ gameClock % 60 + " - (" + league[away].abb + ") "
+				System.out.println(gameClock / 60 + ":" + gameClock % 60
+						+ " - (" + league[away].abb + ") "
 						+ awayActive[ballHandler - 5].lastName
 						+ " missed shot.");
 			}

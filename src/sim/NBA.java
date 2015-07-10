@@ -10,10 +10,11 @@ public class NBA {
 
 	public static void main(String[] args) {
 		newLeague();
-		new GameSim(0,1);
-		new GameSim(0,1);
-		for (int i = 0; i < league[0].roster.size(); i++){
-			System.out.println(league[0].roster.get(i).lastName+": "+league[0].roster.get(i).sPTS);
+		new GameSim(0, 1);
+		new GameSim(0, 1);
+		for (int i = 0; i < league[0].roster.size(); i++) {
+			System.out.println(league[0].roster.get(i).lastName + ": "
+					+ league[0].roster.get(i).sPTS);
 		}
 	}
 

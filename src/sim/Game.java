@@ -72,7 +72,7 @@ public class Game {
 			System.out.println("Quarter " + quarter + " has ended.");
 			gameClock = 720;
 		}
-		
+
 	}
 
 	private void endGame() {

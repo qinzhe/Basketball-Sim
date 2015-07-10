@@ -18,8 +18,8 @@ public class Player {
 	public Player() {
 
 	}
-	
-	public String getLastName(){
+
+	public String getLastName() {
 		return this.lastName;
 	}
 
