@@ -5,10 +5,10 @@ public class Player {
 	String firstName, lastName, team;
 	int pos;
 	// game stats:
-	int PTS, FGA, FGM, AST, BLK, ORB, DRB, TO, STL, FL, MIN = 0;
+	int PTS, FGA, FGM, AST, BLK, ORB, DRB, TO, STL, FL, SEC = 0;
 	int gameStamina;
 	// total season stats:
-	int sPTS, sFGA, sFGM, sAST, sBLK, sORB, sDRB, sTO, sSTL, sFL, sMIN, GP = 0;
+	int sPTS, sFGA, sFGM, sAST, sBLK, sORB, sDRB, sTO, sSTL, sFL, sSEC, GP = 0;
 	// attributes:
 	int offRTG, defRTG, stamina;
 	// float form = 1;
@@ -17,6 +17,10 @@ public class Player {
 
 	public Player() {
 
+	}
+	
+	public String getLastName(){
+		return this.lastName;
 	}
 
 }

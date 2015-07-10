@@ -11,6 +11,10 @@ public class NBA {
 	public static void main(String[] args) {
 		newLeague();
 		new GameSim(0,1);
+		new GameSim(0,1);
+		for (int i = 0; i < league[0].roster.size(); i++){
+			System.out.println(league[0].roster.get(i).lastName+": "+league[0].roster.get(i).sPTS);
+		}
 	}
 
 	public static void newLeague() {
@@ -29,8 +33,8 @@ public class NBA {
 		player.lastName = "Jones" + random.nextInt(99);
 		player.pos = random.nextInt(5);
 		player.team = team;
-		player.offRTG = random.nextInt(50) + 45;
-		player.defRTG = random.nextInt(50) + 45;
+		player.offRTG = random.nextInt(60) + 35;
+		player.defRTG = random.nextInt(60) + 35;
 		player.stamina = random.nextInt(12);
 		return player;
 	}
