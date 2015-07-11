@@ -163,10 +163,12 @@ public class GameSim extends NBA {
 				nextPossession();
 			} else {
 				homeActive[ballHandler].ORB += 1;
+				shotClock = 16;
 			}
 		} else {
 			if (ballHandler >= 5) {
 				awayActive[ballHandler - 5].ORB += 1;
+				shotClock = 16;
 			} else {
 				homeActive[ballHandler].DRB += 1;
 				nextPossession();

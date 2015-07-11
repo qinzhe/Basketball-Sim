@@ -1,5 +1,10 @@
 package sim;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Random;
+
 public class Player {
 
 	String firstName, lastName, team;
@@ -17,6 +22,18 @@ public class Player {
 
 	public Player() {
 
+	}
+
+	public void giveName() throws IOException {
+		Random random = new Random();
+		String firstName = "John";
+		firstName = Files.readAllLines(Paths.get("src/sim/firstNames.txt"))
+				.get(random.nextInt(220));
+		String lastName = "Smith";
+		lastName = Files.readAllLines(Paths.get("src/sim/lastNames.txt")).get(
+				random.nextInt(150));
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public String getLastName() {
