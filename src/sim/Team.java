@@ -15,12 +15,15 @@ public class Team {
 	public Team() {
 		abb = "NBA";
 	}
-	
+
 	public void nameTeam(int i) {
 		try {
-			String location = Files.readAllLines(Paths.get("src/sim/cities.txt")).get(i);
-			String name = Files.readAllLines(Paths.get("src/sim/teams.txt")).get(i);
-			String abb = Files.readAllLines(Paths.get("src/sim/abbreviations.txt")).get(i);
+			String location = Files.readAllLines(
+					Paths.get("src/sim/cities.txt")).get(i);
+			String name = Files.readAllLines(Paths.get("src/sim/teams.txt"))
+					.get(i);
+			String abb = Files.readAllLines(
+					Paths.get("src/sim/abbreviations.txt")).get(i);
 			this.location = location;
 			this.name = name;
 			this.abb = abb;

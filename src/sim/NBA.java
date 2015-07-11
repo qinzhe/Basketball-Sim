@@ -11,11 +11,12 @@ public class NBA {
 
 	public static void main(String[] args) throws IOException {
 		newLeague();
-		new GameSim(0, random.nextInt(28)+1);
-		new GameSim(0, random.nextInt(28)+1);
+		new GameSim(0, random.nextInt(28) + 1);
+		new GameSim(0, random.nextInt(28) + 1);
 		for (int i = 0; i < league[0].roster.size(); i++) {
 			System.out.println(league[0].roster.get(i).lastName + ": "
-					+ league[0].roster.get(i).sPTS);
+					+ league[0].roster.get(i).sPTS / 2 + " PPG ("
+					+ league[0].roster.get(i).sSEC / 60 / 2 + " MPG)");
 		}
 	}
 
@@ -42,7 +43,7 @@ public class NBA {
 		player.team = team;
 		player.offRTG = random.nextInt(60) + 35;
 		player.defRTG = random.nextInt(60) + 35;
-		player.stamina = random.nextInt(12);
+		player.stamina = random.nextInt(120) + 120;
 		return player;
 	}
 

@@ -39,8 +39,10 @@ public class GameSim extends NBA {
 		for (int i = 0; i < 5; i++) {
 			homeActive[i] = homeBench.get(0);
 			homeBench.remove(0);
-			awayActive[i] = awayBench.get(i);
+			homeActive[i].gameStamina = homeActive[i].stamina + 500;
+			awayActive[i] = awayBench.get(0);
 			awayBench.remove(0);
+			awayActive[i].gameStamina = awayActive[i].stamina + 500;
 		}
 		if (random.nextBoolean()) {
 			ballHandler = random.nextInt(5);
@@ -79,6 +81,20 @@ public class GameSim extends NBA {
 				seconds = 59;
 			}
 			shotClock -= 1;
+			for (int i = 0; i < 5; i++) {
+				homeActive[i].gameStamina -= 1;
+				homeActive[i].SEC += 1;
+				awayActive[i].gameStamina -= 1;
+				awayActive[i].SEC += 1;
+			}
+			for (int i = 0; i < 10; i++) {
+				if (homeBench.get(i) != null) {
+					homeBench.get(i).gameStamina += 1;
+				}
+				if (awayBench.get(i) != null) {
+					awayBench.get(i).gameStamina += 1;
+				}
+			}
 			if (random.nextInt(16) > shotClock) {
 				shoot((random.nextInt(3) + 4) / 2);
 			} else {
@@ -132,21 +148,41 @@ public class GameSim extends NBA {
 		for (int i = 0; i < 15; i++) {
 			if (league[home].roster.get(i) != null) {
 				league[home].roster.get(i).sPTS += homeBench.get(i).PTS;
+				homeBench.get(i).PTS = 0;
 				league[home].roster.get(i).sAST += homeBench.get(i).AST;
+				homeBench.get(i).AST = 0;
 				league[home].roster.get(i).sSEC += homeBench.get(i).SEC;
+				if (homeBench.get(i).SEC > 0) {
+					homeBench.get(i).GP += 1;
+				}
+				homeBench.get(i).SEC = 0;
 				league[home].roster.get(i).sORB += homeBench.get(i).ORB;
+				homeBench.get(i).ORB = 0;
 				league[home].roster.get(i).sDRB += homeBench.get(i).DRB;
+				homeBench.get(i).DRB = 0;
 				league[home].roster.get(i).sFGA += homeBench.get(i).FGA;
+				homeBench.get(i).FGA = 0;
 				league[home].roster.get(i).sFGM += homeBench.get(i).FGM;
+				homeBench.get(i).FGM = 0;
 			}
 			if (league[away].roster.get(i) != null) {
 				league[away].roster.get(i).sPTS += awayBench.get(i).PTS;
+				awayBench.get(i).PTS = 0;
 				league[away].roster.get(i).sAST += awayBench.get(i).AST;
+				awayBench.get(i).AST = 0;
 				league[away].roster.get(i).sSEC += awayBench.get(i).SEC;
+				if (awayBench.get(i).SEC > 0) {
+					awayBench.get(i).GP += 1;
+				}
+				awayBench.get(i).SEC = 0;
 				league[away].roster.get(i).sORB += awayBench.get(i).ORB;
+				awayBench.get(i).ORB = 0;
 				league[away].roster.get(i).sDRB += awayBench.get(i).DRB;
+				awayBench.get(i).DRB = 0;
 				league[away].roster.get(i).sFGA += awayBench.get(i).FGA;
+				awayBench.get(i).FGA = 0;
 				league[away].roster.get(i).sFGM += awayBench.get(i).FGM;
+				awayBench.get(i).FGM = 0;
 			}
 		}
 	}
@@ -294,6 +330,8 @@ public class GameSim extends NBA {
 
 	private void nextPossession() {
 
+		substitutions();
+
 		if (homeBall) {
 			homeBall = false;
 			ballHandler = 5;
@@ -336,7 +374,28 @@ public class GameSim extends NBA {
 	}
 
 	private void substitutions() {
-		// TODO
+		for (int i = 0; i < 5; i++) {
+			if (homeActive[i].gameStamina <= 0) {
+				for (int j = 0; j < 10; j++) {
+					if ((homeBench.get(j) != null)
+							&& (homeBench.get(j).pos == homeActive[i].pos)) {
+						homeBench.add(homeActive[i]);
+						homeActive[i] = homeBench.get(j);
+						homeBench.remove(j);
+					}
+				}
+			}
+			if (awayActive[i].gameStamina <= 0) {
+				for (int j = 0; j < 10; j++) {
+					if ((awayBench.get(j) != null)
+							&& (awayBench.get(j).pos == awayActive[i].pos)) {
+						awayBench.add(awayActive[i]);
+						awayActive[i] = awayBench.get(j);
+						awayBench.remove(j);
+					}
+				}
+			}
+		}
 	}
 
 }
