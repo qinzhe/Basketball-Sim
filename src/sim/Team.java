@@ -19,11 +19,11 @@ public class Team {
 	public void nameTeam(int i) {
 		try {
 			String location = Files.readAllLines(
-					Paths.get("src/sim/cities.txt")).get(i);
-			String name = Files.readAllLines(Paths.get("src/sim/teams.txt"))
+					Paths.get("src/cities.txt")).get(i);
+			String name = Files.readAllLines(Paths.get("src/teams.txt"))
 					.get(i);
 			String abb = Files.readAllLines(
-					Paths.get("src/sim/abbreviations.txt")).get(i);
+					Paths.get("src/abbreviations.txt")).get(i);
 			this.location = location;
 			this.name = name;
 			this.abb = abb;

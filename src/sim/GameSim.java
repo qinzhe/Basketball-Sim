@@ -100,11 +100,11 @@ public class GameSim extends NBA {
 			} else {
 				pass();
 			}
-			try {
+			/*try {
 				Thread.sleep(simSpeed);
 			} catch (InterruptedException ex) {
 				Thread.currentThread().interrupt();
-			}
+			} */
 			if (shotClock == 0) {
 				turnover("TO");
 			}

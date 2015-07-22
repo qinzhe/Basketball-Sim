@@ -8,15 +8,19 @@ public class NBA {
 	static Team league[] = new Team[30];
 
 	static Random random = new Random();
+	
+	static int games = 82;
 
 	public static void main(String[] args) throws IOException {
 		newLeague();
-		new GameSim(0, random.nextInt(28) + 1);
-		new GameSim(0, random.nextInt(28) + 1);
+		for (int x = 1; x <= games; x++){
+			// 82 game season
+			new GameSim(0, random.nextInt(28) + 1);
+		}
 		for (int i = 0; i < league[0].roster.size(); i++) {
 			System.out.println(league[0].roster.get(i).lastName + ": "
-					+ league[0].roster.get(i).sPTS / 2 + " PPG ("
-					+ league[0].roster.get(i).sSEC / 60 / 2 + " MPG)");
+					+ league[0].roster.get(i).sPTS / games + " PPG ("
+					+ league[0].roster.get(i).sSEC / 60 / games + " MPG)");
 		}
 	}
 
