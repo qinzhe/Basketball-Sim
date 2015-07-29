@@ -1,0 +1,2 @@
+# Basketball Sim
+Currently not runnable for purposes other than testing. This will allow you to manage a basketball team through trades, training, coaching, etc. Won't be too complicated, as I just wanted to do this for fun. Games simulate with a pretty simple "engine," which basically just counts down the length of a game and handles substitutions, shots, passes, rebounds, turnovers, etc. The game will also include stat tracking for your players and others across the league over an 82 game season.

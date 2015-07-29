@@ -25,10 +25,10 @@ public class Team {
 
 	public void nameTeam(int i) {
 		try {
-			String location = Files.readAllLines(Paths.get("src/cities.txt"))
+			String location = Files.readAllLines(Paths.get("src/data/cities.txt"))
 					.get(i);
-			String name = Files.readAllLines(Paths.get("src/teams.txt")).get(i);
-			String abb = Files.readAllLines(Paths.get("src/abbreviations.txt"))
+			String name = Files.readAllLines(Paths.get("src/data/teams.txt")).get(i);
+			String abb = Files.readAllLines(Paths.get("src/data/abbreviations.txt"))
 					.get(i);
 			this.location = location;
 			this.name = name;
