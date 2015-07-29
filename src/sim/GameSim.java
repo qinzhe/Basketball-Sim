@@ -32,8 +32,11 @@ public class GameSim extends NBA {
 	}
 
 	private void tipOff() {
+		
+		league[home].refresh();
+		league[away].refresh();
 
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 13; i++) {
 			homeBench.add(league[home].roster.get(i));
 			awayBench.add(league[away].roster.get(i));
 		}
@@ -41,16 +44,16 @@ public class GameSim extends NBA {
 		sortPlayers(true);
 
 		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j <= 15; j++) {
+			for (int j = 0; j <= 13; j++) {
 				if (j < homeBench.size()) {
-					if (homeBench.get(j).pos == i + 1) {
+					if (homeBench.get(j).pos == i) {
 						homeActive[i] = homeBench.get(j);
 						homeBench.remove(j);
 						homeActive[i].gameStamina = homeActive[i].stamina;
 					}
 				}
 				if (j < awayBench.size()) {
-					if (awayBench.get(j).pos == i + 1) {
+					if (awayBench.get(j).pos == i) {
 						awayActive[i] = awayBench.get(j);
 						awayBench.remove(j);
 						awayActive[i].gameStamina = awayActive[i].stamina;
@@ -162,22 +165,15 @@ public class GameSim extends NBA {
 
 	private void sortPlayers(boolean init) {
 
-		Comparator<Player> lastName = new Comparator<Player>() {
-			@Override
-			public int compare(Player arg0, Player arg1) {
-				return arg0.getLastName().compareTo(arg1.getLastName());
-			}
-		};
-
 		Comparator<Player> RTG = new Comparator<Player>() {
 			public int compare(Player arg0, Player arg1) {
-				return arg0.RTG - arg1.RTG;
+				return arg1.RTG - arg0.RTG;
 			}
 		};
 
 		Comparator<Player> gameStamina = new Comparator<Player>() {
 			public int compare(Player arg0, Player arg1) {
-				return arg1.gameStamina - arg0.gameStamina;
+				return arg0.gameStamina - arg1.gameStamina;
 			}
 		};
 

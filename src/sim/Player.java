@@ -28,8 +28,8 @@ public class Player {
 	public void giveName() throws IOException {
 		Random random = new Random();
 		String firstName = "John";
-		firstName = Files.readAllLines(Paths.get("src/firstNames.txt"))
-				.get(random.nextInt(220));
+		firstName = Files.readAllLines(Paths.get("src/firstNames.txt")).get(
+				random.nextInt(220));
 		String lastName = "Smith";
 		lastName = Files.readAllLines(Paths.get("src/lastNames.txt")).get(
 				random.nextInt(150));

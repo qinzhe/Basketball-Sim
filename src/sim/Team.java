@@ -15,15 +15,21 @@ public class Team {
 	public Team() {
 		abb = "NBA";
 	}
+	
+	public void refresh() {
+		for (int i = 0; i < roster.size(); i++) {
+			roster.get(i).gameStamina = 0;
+			roster.get(i).SEC = 0;
+		}
+	}
 
 	public void nameTeam(int i) {
 		try {
-			String location = Files.readAllLines(
-					Paths.get("src/cities.txt")).get(i);
-			String name = Files.readAllLines(Paths.get("src/teams.txt"))
+			String location = Files.readAllLines(Paths.get("src/cities.txt"))
 					.get(i);
-			String abb = Files.readAllLines(
-					Paths.get("src/abbreviations.txt")).get(i);
+			String name = Files.readAllLines(Paths.get("src/teams.txt")).get(i);
+			String abb = Files.readAllLines(Paths.get("src/abbreviations.txt"))
+					.get(i);
 			this.location = location;
 			this.name = name;
 			this.abb = abb;
