@@ -16,6 +16,7 @@ public class Player {
 	int sPTS, sFGA, sFGM, sAST, sBLK, sORB, sDRB, sTO, sSTL, sFL, sSEC, GP = 0;
 	// attributes:
 	int offRTG, defRTG, stamina;
+	int RTG = (offRTG + defRTG) / 2;
 	// float form = 1;
 	boolean injured = false;
 	int injuryDuration = 0;

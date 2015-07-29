@@ -32,18 +32,43 @@ public class GameSim extends NBA {
 	}
 
 	private void tipOff() {
+
 		for (int i = 0; i < 15; i++) {
 			homeBench.add(league[home].roster.get(i));
 			awayBench.add(league[away].roster.get(i));
 		}
+
+		sortPlayers(true);
+
 		for (int i = 0; i < 5; i++) {
-			homeActive[i] = homeBench.get(0);
-			homeBench.remove(0);
-			homeActive[i].gameStamina = homeActive[i].stamina + 500;
-			awayActive[i] = awayBench.get(0);
-			awayBench.remove(0);
-			awayActive[i].gameStamina = awayActive[i].stamina + 500;
+			for (int j = 0; j <= 15; j++) {
+				if (j < homeBench.size()) {
+					if (homeBench.get(j).pos == i + 1) {
+						homeActive[i] = homeBench.get(j);
+						homeBench.remove(j);
+						homeActive[i].gameStamina = homeActive[i].stamina;
+					}
+				}
+				if (j < awayBench.size()) {
+					if (awayBench.get(j).pos == i + 1) {
+						awayActive[i] = awayBench.get(j);
+						awayBench.remove(j);
+						awayActive[i].gameStamina = awayActive[i].stamina;
+					}
+				}
+			}
+			if (homeActive[i] == null) {
+				homeActive[i] = homeBench.get(0);
+				homeBench.remove(0);
+				homeActive[i].gameStamina = homeActive[i].stamina;
+			}
+			if (awayActive[i] == null) {
+				awayActive[i] = awayBench.get(0);
+				awayBench.remove(0);
+				awayActive[i].gameStamina = awayActive[i].stamina;
+			}
 		}
+
 		if (random.nextBoolean()) {
 			ballHandler = random.nextInt(5);
 			homeBall = true;
@@ -51,8 +76,10 @@ public class GameSim extends NBA {
 			ballHandler = random.nextInt(5) + 5;
 			homeBall = false;
 		}
+
 		play();
 		score();
+
 	}
 
 	private void score() {
@@ -80,31 +107,36 @@ public class GameSim extends NBA {
 				minutes -= 1;
 				seconds = 59;
 			}
+
 			shotClock -= 1;
+
 			for (int i = 0; i < 5; i++) {
 				homeActive[i].gameStamina -= 1;
 				homeActive[i].SEC += 1;
 				awayActive[i].gameStamina -= 1;
 				awayActive[i].SEC += 1;
 			}
-			for (int i = 0; i < 10; i++) {
+
+			for (int i = 0; i < homeBench.size(); i++) {
 				if (homeBench.get(i) != null) {
 					homeBench.get(i).gameStamina += 1;
 				}
+			}
+			for (int i = 0; i < awayBench.size(); i++) {
 				if (awayBench.get(i) != null) {
 					awayBench.get(i).gameStamina += 1;
 				}
 			}
+
 			if (random.nextInt(16) > shotClock) {
 				shoot((random.nextInt(3) + 4) / 2);
 			} else {
 				pass();
 			}
-			/*try {
-				Thread.sleep(simSpeed);
-			} catch (InterruptedException ex) {
-				Thread.currentThread().interrupt();
-			} */
+			/*
+			 * try { Thread.sleep(simSpeed); } catch (InterruptedException ex) {
+			 * Thread.currentThread().interrupt(); }
+			 */
 			if (shotClock == 0) {
 				turnover("TO");
 			}
@@ -123,12 +155,12 @@ public class GameSim extends NBA {
 			awayBench.add(awayActive[i]);
 		}
 
-		sortPlayers();
+		sortPlayers(true);
 		recordStats();
 
 	}
 
-	private void sortPlayers() {
+	private void sortPlayers(boolean init) {
 
 		Comparator<Player> lastName = new Comparator<Player>() {
 			@Override
@@ -137,15 +169,32 @@ public class GameSim extends NBA {
 			}
 		};
 
-		Collections.sort(homeBench, lastName);
-		Collections.sort(awayBench, lastName);
-		Collections.sort(league[home].roster, lastName);
-		Collections.sort(league[away].roster, lastName);
+		Comparator<Player> RTG = new Comparator<Player>() {
+			public int compare(Player arg0, Player arg1) {
+				return arg0.RTG - arg1.RTG;
+			}
+		};
+
+		Comparator<Player> gameStamina = new Comparator<Player>() {
+			public int compare(Player arg0, Player arg1) {
+				return arg1.gameStamina - arg0.gameStamina;
+			}
+		};
+
+		if (init) {
+			Collections.sort(league[home].roster, RTG);
+			Collections.sort(league[away].roster, RTG);
+			Collections.sort(homeBench, RTG);
+			Collections.sort(awayBench, RTG);
+		} else {
+			Collections.sort(homeBench, gameStamina);
+			Collections.sort(awayBench, gameStamina);
+		}
 
 	}
 
 	private void recordStats() {
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < homeBench.size(); i++) {
 			if (league[home].roster.get(i) != null) {
 				league[home].roster.get(i).sPTS += homeBench.get(i).PTS;
 				homeBench.get(i).PTS = 0;
@@ -165,6 +214,8 @@ public class GameSim extends NBA {
 				league[home].roster.get(i).sFGM += homeBench.get(i).FGM;
 				homeBench.get(i).FGM = 0;
 			}
+		}
+		for (int i = 0; i < awayBench.size(); i++) {
 			if (league[away].roster.get(i) != null) {
 				league[away].roster.get(i).sPTS += awayBench.get(i).PTS;
 				awayBench.get(i).PTS = 0;
@@ -330,7 +381,9 @@ public class GameSim extends NBA {
 
 	private void nextPossession() {
 
-		substitutions();
+		if (gameClock % 60 == 0) {
+			substitutions();
+		}
 
 		if (homeBall) {
 			homeBall = false;
@@ -374,11 +427,12 @@ public class GameSim extends NBA {
 	}
 
 	private void substitutions() {
+		sortPlayers(false);
 		for (int i = 0; i < 5; i++) {
 			if (homeActive[i].gameStamina <= 0) {
-				for (int j = 0; j < 10; j++) {
+				for (int j = 0; j < homeBench.size(); j++) {
 					if ((homeBench.get(j) != null)
-							&& (homeBench.get(j).pos == homeActive[i].pos)) {
+							&& (Math.abs(homeBench.get(j).pos - i)) <= 1) {
 						homeBench.add(homeActive[i]);
 						homeActive[i] = homeBench.get(j);
 						homeBench.remove(j);
@@ -386,9 +440,9 @@ public class GameSim extends NBA {
 				}
 			}
 			if (awayActive[i].gameStamina <= 0) {
-				for (int j = 0; j < 10; j++) {
+				for (int j = 0; j < awayBench.size(); j++) {
 					if ((awayBench.get(j) != null)
-							&& (awayBench.get(j).pos == awayActive[i].pos)) {
+							&& (Math.abs(awayBench.get(j).pos - i)) <= 1) {
 						awayBench.add(awayActive[i]);
 						awayActive[i] = awayBench.get(j);
 						awayBench.remove(j);

@@ -45,9 +45,9 @@ public class NBA {
 		}
 		player.pos = random.nextInt(5);
 		player.team = team;
-		player.offRTG = random.nextInt(60) + 35;
+		player.offRTG = random.nextInt(50) + 45;
 		player.defRTG = random.nextInt(60) + 35;
-		player.stamina = random.nextInt(120) + 120;
+		player.stamina = player.RTG;
 		return player;
 	}
 
